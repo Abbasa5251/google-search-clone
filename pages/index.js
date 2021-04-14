@@ -4,13 +4,29 @@ import Footer from "../components/Footer";
 import { ViewGridIcon, MicrophoneIcon } from "@heroicons/react/solid";
 import { SearchIcon } from "@heroicons/react/outline";
 import Image from "next/image";
+import { useRef } from "react";
+import { useRouter } from "next/router";
 
 export default function Home() {
+	const router = useRouter();
+	const searchInputRef = useRef(null);
+
+	const search = (e) => {
+		e.preventDefault();
+		const query = searchInputRef.current.value;
+		if (!query) return;
+		router.push(`/search?q=${query}`);
+	};
+
 	return (
 		<div className="flex flex-col items-center justify-center h-screen">
 			<Head>
 				<title>Google Search</title>
-				<link rel="icon" href="/favicon.ico" />
+				<link
+					rel="shortcut icon"
+					href="/favicon.png"
+					type="image/x-icon"
+				/>
 			</Head>
 			<header className="flex w-full p-5 justify-between text-sm text-gray-700">
 				<div className="flex space-x-4 items-center">
@@ -21,7 +37,7 @@ export default function Home() {
 					<p className="link">Gmail</p>
 					<p className="link">Images</p>
 					<ViewGridIcon className="h-10 w-10 p-2 rounded-full hover:bg-gray-100 cursor-pointer" />
-					<Avatar url="https://coaching.papareact.com/ai9" />
+					<Avatar url="https://lh3.googleusercontent.com/ogw/ADGmqu93AyeHk1XNvSMQJ0UGQwFrNIlzfgf8pCzfYJrNJA=s32-c-mo" />
 				</div>
 			</header>
 			<form className="flex flex-col items-center mt-36 flex-grow w-4/5">
@@ -30,6 +46,7 @@ export default function Home() {
 				<div className="flex w-full mt-5 hover:shadow-lg focus-within:shadow-lg max-w-md rounded-full border border-gray-300 px-5 py-3 items-center sm:max-w-xl lg:max-w-2xl">
 					<SearchIcon className="h-5 mr-3 text-gray-500" />
 					<input
+						ref={searchInputRef}
 						type="text"
 						className="flex-grow focus:outline-none"
 					/>
@@ -37,8 +54,12 @@ export default function Home() {
 				</div>
 
 				<div className="flex flex-col w-1/2 space-y-2 justify-center mt-8 sm:space-y-0 sm:flex-row sm:space-x-4">
-					<button className="btn">Google Search</button>
-					<button className="btn">I.m feeling Lucky</button>
+					<button onClick={search} className="btn">
+						Google Search
+					</button>
+					<button onClick={search} className="btn">
+						I.m feeling Lucky
+					</button>
 				</div>
 			</form>
 			<Footer />
