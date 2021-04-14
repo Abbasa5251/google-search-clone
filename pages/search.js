@@ -6,7 +6,7 @@ import Response from "../Response";
 
 function Search({ results }) {
 	const router = useRouter();
-	console.log(results);
+
 	return (
 		<div>
 			<Head>
@@ -24,7 +24,7 @@ function Search({ results }) {
 }
 
 export async function getServerSideProps(context) {
-	const useDummyData = true;
+	const useDummyData = false;
 	const startIndex = context.query.start || "0";
 
 	const data = useDummyData
